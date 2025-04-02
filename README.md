@@ -1,6 +1,3 @@
-아래는 요청하신 **README.md** 파일을 마크다운 형식으로 작성한 내용입니다:
-
-```markdown
 # Outing Bot
 
 ## 개요
@@ -58,6 +55,3 @@ This project is licensed under the ISC License - see the [LICENSE](LICENSE) file
 
 **Author**: Your Name  
 **License**: ISC License
-```
-
-위의 **README.md** 마크다운 형식은 프로젝트의 주요 내용과 사용 방법을 깔끔하게 정리한 예시입니다. 이 파일을 프로젝트의 루트 디렉토리에 저장하면 됩니다.
