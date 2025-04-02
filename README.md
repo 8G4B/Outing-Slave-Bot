@@ -53,5 +53,5 @@ This project is licensed under the ISC License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Author**: Your Name  
+**Author**: [KIM TAEEUN](https://github.com/snowykte0426)
 **License**: ISC License
