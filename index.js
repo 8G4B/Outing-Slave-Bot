@@ -2,7 +2,7 @@ const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
 const { token } = require('./config.json');
 const cron = require('node-cron');
 
-let channel = null;
+let channelId = null;
 let isNotificationEnabled = true;
 
 const client = new Client({ intents: [
@@ -17,41 +17,32 @@ client.on('interactionCreate', async (interaction) => {
 
   const { commandName } = interaction;
 
-  if (commandName === '채널설정') {
-    const channelName = interaction.options.getString('채널_이름');
-    
-    // #이 포함된 채널 이름에서 #을 제거
-    const cleanedChannelName = channelName.replace('#', '').trim();
-
-    if (!cleanedChannelName) {
-      await interaction.reply('채널 이름을 입력하세요!');
+  if (commandName === 'setchannel') {
+    const newChannelId = interaction.options.getString('channel_id');
+    if (!newChannelId) {
+      await interaction.reply('채널 ID를 입력하세요!');
       return;
     }
-
-    // 채널 이름으로 채널을 찾기
-    channel = client.channels.cache.find(c => c.name === cleanedChannelName && c.type === 'GUILD_TEXT');
-    
-    if (!channel) {
-      await interaction.reply(`채널 이름 "${channelName}"에 해당하는 채널을 찾을 수 없습니다.`);
-      return;
-    }
-    
-    await interaction.reply(`메시지를 보낼 채널을 <#${channel.id}> 으로 설정했습니다.`);
+    channelId = newChannelId;
+    await interaction.reply(`메시지를 보낼 채널을 <#${channelId}> 으로 설정했습니다.`);
   }
 
-  if (commandName === '알림비활성화') {
+  if (commandName === 'disable') {
     isNotificationEnabled = false;
     await interaction.reply('알림이 비활성화되었습니다. 다음 알림은 월요일 또는 수요일 이후에 활성화됩니다.');
   }
 
-  if (commandName === '임베드테스트') {
+  if (commandName === 'testembed') {
     sendEmbed();
     await interaction.reply('테스트 임베드를 전송했습니다.');
   }
 });
 
 function sendEmbed() {
-    if (!channel || !isNotificationEnabled) return;
+    if (!channelId || !isNotificationEnabled) return;
+
+    const channel = client.channels.cache.get(channelId);
+    if (!channel) return;
 
     const embed = new EmbedBuilder()
         .setColor('#0099ff')
