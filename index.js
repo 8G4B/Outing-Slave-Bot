@@ -1,6 +1,7 @@
 const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
 const { token } = require('./config.json');
 const cron = require('node-cron');
+const winston = require('winston');
 
 let channelId = null;
 let isNotificationEnabled = true;
@@ -61,8 +62,16 @@ cron.schedule('0 12 * * 1,3', () => {
     timezone: "Asia/Seoul"
 });
 
+const log = winston.createLogger({
+  level: 'info',
+  transports: [
+      new winston.transports.Console({ format: winston.format.simple() }),
+  ],
+});
+
 client.login(token);
+
 log.info('봇이 로그인했습니다.');
 client.once('ready', () => {
-    console.log(`Logged in as ${client.user.tag}!`);
+    log.info(`Logged in as ${client.user.tag}!`);
 });
