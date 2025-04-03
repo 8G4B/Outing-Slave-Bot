@@ -17,8 +17,8 @@ client.on('interactionCreate', async (interaction) => {
 
   const { commandName } = interaction;
 
-  if (commandName === 'setchannel') {
-    const newChannelId = interaction.options.getString('channel_id');
+  if (commandName === '채널설정') {
+    const newChannelId = interaction.options.getString('채널_id');
     if (!newChannelId) {
       await interaction.reply('채널 ID를 입력하세요!');
       return;
@@ -27,12 +27,12 @@ client.on('interactionCreate', async (interaction) => {
     await interaction.reply(`메시지를 보낼 채널을 <#${channelId}> 으로 설정했습니다.`);
   }
 
-  if (commandName === 'disable') {
+  if (commandName === '알림비활성화') {
     isNotificationEnabled = false;
     await interaction.reply('알림이 비활성화되었습니다. 다음 알림은 월요일 또는 수요일 이후에 활성화됩니다.');
   }
 
-  if (commandName === 'testembed') {
+  if (commandName === '임베드테스트') {
     sendEmbed();
     await interaction.reply('테스트 임베드를 전송했습니다.');
   }
