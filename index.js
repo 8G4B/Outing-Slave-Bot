@@ -22,20 +22,24 @@ client.on('interactionCreate', async (interaction) => {
     const newChannelId = interaction.options.getString('채널_id');
     if (!newChannelId) {
       await interaction.reply('채널 ID를 입력하세요!');
+      log.error('채널 ID가 제공되지 않았습니다.');
       return;
     }
     channelId = newChannelId;
     await interaction.reply(`메시지를 보낼 채널을 <#${channelId}> 으로 설정했습니다.`);
+    log.info(`채널 ID가 ${channelId}으로 설정되었습니다.`);
   }
 
   if (commandName === '알림비활성화') {
     isNotificationEnabled = false;
     await interaction.reply('알림이 비활성화되었습니다. 다음 알림은 월요일 또는 수요일 이후에 활성화됩니다.');
+    log.info('알림 비활성화됨');
   }
 
   if (commandName === '임베드테스트') {
     sendEmbed();
     await interaction.reply('테스트 임베드를 전송했습니다.');
+    log.info(`${interaction.user.tag}이(가) ${channelId}에 임베드 테스트를 요청했습니다.`);
   }
 });
 
