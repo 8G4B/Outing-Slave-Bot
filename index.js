@@ -1,10 +1,16 @@
 const { Client, GatewayIntentBits, EmbedBuilder } = require("discord.js");
 const { token } = require("./config.json");
+const { outingMessages } = require("./messages.json");
 const cron = require("node-cron");
 const winston = require("winston");
 
 let channelId = null;
 let isNotificationEnabled = true;
+
+function getRandomMessages() {
+  const shuffled = [...outingMessages].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, 3);
+}
 
 const client = new Client({
   intents: [
@@ -67,11 +73,14 @@ function sendEmbed() {
   const channel = client.channels.cache.get(channelId);
   if (!channel) return;
 
+  const randomMessages = getRandomMessages();
+  const messageList = randomMessages.map(msg => `- ${msg}`).join('\n');
+
   const embed = new EmbedBuilder()
     .setColor("#0099ff")
     .setTitle("외출제 알림")
     .setDescription(
-      "이번 외출제 때 할 일들을 알려주세요!:\n- 경주와 불닭볶음면 조지기\n- 홍준이와 짜장면 데이트\n- 상혁이와 컴포즈커피 마시기"
+      `이번 외출제 때 할 일들을 알려주세요!:\n${messageList}`
     )
     .setFooter({ text: "매주 월요일과 수요일 점심 알림입니다." })
     .setTimestamp();
