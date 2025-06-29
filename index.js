@@ -42,6 +42,14 @@ client.on("interactionCreate", async (interaction) => {
     log.info("알림 비활성화됨");
   }
 
+  if (commandName === "알림활성화") {
+    isNotificationEnabled = true;
+    await interaction.reply(
+      "알림이 활성화되었습니다. 다음 예정된 알림부터 정상적으로 전송됩니다."
+    );
+    log.info("알림 활성화됨");
+  }
+
   if (commandName === "임베드테스트") {
     sendEmbed();
     await interaction.reply("테스트 임베드를 전송했습니다.");

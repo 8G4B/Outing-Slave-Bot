@@ -13,6 +13,9 @@ const commands = [
     .setName("알림비활성화")
     .setDescription("알림을 비활성화합니다."),
   new SlashCommandBuilder()
+    .setName("알림활성화")
+    .setDescription("알림을 활성화합니다."),
+  new SlashCommandBuilder()
     .setName("임베드테스트")
     .setDescription("임베드 메시지를 테스트로 전송합니다."),
 ].map((command) => command.toJSON());
