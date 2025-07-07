@@ -12,6 +12,11 @@ function getRandomMessages() {
   return shuffled.slice(0, 3);
 }
 
+function getRandomActivity() {
+  const randomIndex = Math.floor(Math.random() * outingMessages.length);
+  return outingMessages[randomIndex];
+}
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -61,6 +66,21 @@ client.on("interactionCreate", async (interaction) => {
     await interaction.reply("테스트 임베드를 전송했습니다.");
     log.info(
       `${interaction.user.tag}이(가) ${channelId}에 임베드 테스트를 요청했습니다.`
+    );
+  }
+
+  if (commandName === "할일추천") {
+    const randomActivity = getRandomActivity();
+    const embed = new EmbedBuilder()
+      .setColor("#ff6b6b")
+      .setTitle("할일 추천")
+      .setDescription(`오늘의 추천 할일: **${randomActivity}**`)
+      .setFooter({ text: "즐거운 외출제 되세요!" })
+      .setTimestamp();
+    
+    await interaction.reply({ embeds: [embed] });
+    log.info(
+      `${interaction.user.tag}이(가) 할일 추천을 요청했습니다: ${randomActivity}`
     );
   }
 });
