@@ -18,6 +18,9 @@ const commands = [
   new SlashCommandBuilder()
     .setName("임베드테스트")
     .setDescription("임베드 메시지를 테스트로 전송합니다."),
+  new SlashCommandBuilder()
+    .setName("할일추천")
+    .setDescription("외출제 할일을 하나 추천해드립니다."),
 ].map((command) => command.toJSON());
 
 const rest = new REST({ version: "10" }).setToken(token);
